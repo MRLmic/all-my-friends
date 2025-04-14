@@ -1,6 +1,10 @@
 #root {
-  max-width: 1280px;
+  height: 100vh;
   margin: 0 auto;
-  padding: 2rem;
+  width: 100vw;
   text-align: center;
+}
+
+.home {
+  min-height: 70vh;
 }

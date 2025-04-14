@@ -7,7 +7,7 @@ function App() {
 
   return (
     <>
-      <div>
+      <div className='container-fluid'>
         All My Friends
         <Home />
       </div>
