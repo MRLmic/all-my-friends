@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-import { Button } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import PhoneInput from "react-phone-number-input";
 import { VscSave } from "react-icons/vsc";
 import { MdOutlineCancel } from "react-icons/md";
 
-const ContactForm = ({setShowForm}) => {
+const ContactForm = ({ setShowForm }) => {
   //PhoneInput component prepends country code to phone number automatically (E.164 format)
-  const [phoneNumber, setPhoneNumber] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -19,15 +19,15 @@ const ContactForm = ({setShowForm}) => {
       ...prevData,
       [name]: value,
     }));
-  }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const contactData = {
-        ...formData,
-        phone: phoneNumber,
-    }
-    console.log('Form Data:', contactData);
+      ...formData,
+      phone: phoneNumber,
+    };
+    console.log("Form Data:", contactData);
   };
 
   return (
@@ -71,8 +71,30 @@ const ContactForm = ({setShowForm}) => {
                 defaultCountry="US"
               />
             </div>
-            <Button type="submit"><VscSave/>Save</Button>
-            <Button onClick={() => setShowForm(false)}><MdOutlineCancel /></Button>
+            <div style={{ display: 'inline-block', position: 'relative'}}>
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip id="tooltip-top">Cancel</Tooltip>}
+            >
+              <Button
+                variant="link"
+                className="text-black"
+                onClick={() => setShowForm(false)}
+              >
+                <MdOutlineCancel />
+              </Button>
+            </OverlayTrigger>
+            </div>
+            <div style={{ display: 'inline-block', position: 'relative'}}>
+            <OverlayTrigger
+              placement="top"
+              overlay={<Tooltip id="tooltip-top">Save Contact</Tooltip>}
+            >
+              <Button type="submit" variant="link" className="text-black">
+                <VscSave />
+              </Button>
+            </OverlayTrigger>
+            </div>
           </form>
         </div>
       </div>
