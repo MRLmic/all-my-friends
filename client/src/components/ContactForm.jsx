@@ -48,7 +48,7 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
   return (
     <div className="contact-form">
       <div className="row mx-auto text-center">
-        <div>New Contact</div>
+        <div>{editContactForm ? 'Edit' : 'Add New'} Contact</div>
       </div>
       <div className="row">
         <div className="col-md-4 mx-auto">
