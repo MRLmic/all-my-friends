@@ -3,7 +3,6 @@ import React, {useState} from 'react';
 import ContactList from '../components/ContactList';
 import ContactDetails from '../components/ContactDetails';
 import ContactForm from '../components/ContactForm';
-import { FiUserPlus } from "react-icons/fi";
 
 import dummyContacts from './../DummyContactList.json';
 
@@ -22,7 +21,6 @@ const Home = () => {
                     <ContactList contacts={dummyContacts} selectContact={selectContact}/>
                 </div>
                 <div className="col-md-10">
-                    <FiUserPlus />
                     {/* <ContactForm /> */}
                     <ContactDetails selectedContact={selectedContact}/>
                 </div>

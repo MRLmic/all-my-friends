@@ -1,5 +1,6 @@
 import React from "react";
-import { Offcanvas } from "react-bootstrap";
+import { Button, Offcanvas } from "react-bootstrap";
+import { FiUserPlus } from "react-icons/fi";
 
 import ListEntry from "./ListEntry";
 
@@ -8,7 +9,10 @@ const ContactList = ({contacts, selectContact}) => {
     <div className="contact-list">
       <Offcanvas show={true} placement="start" backdrop={false} scroll={true}>
         <Offcanvas.Header>
+            <div>
           <Offcanvas.Title>Contact List</Offcanvas.Title>
+          <Button variant='link' className='text-black'><FiUserPlus/></Button>
+          </div>
         </Offcanvas.Header>
         <Offcanvas.Body>
             {contacts.map((contact, index) => (
