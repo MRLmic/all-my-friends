@@ -4,14 +4,14 @@ import { FiUserPlus } from "react-icons/fi";
 
 import ListEntry from "./ListEntry";
 
-const ContactList = ({contacts, selectContact}) => {
+const ContactList = ({contacts, selectContact, setShowForm}) => {
   return (
     <div className="contact-list">
       <Offcanvas show={true} placement="start" backdrop={false} scroll={true}>
         <Offcanvas.Header>
             <div>
           <Offcanvas.Title>Contact List</Offcanvas.Title>
-          <Button variant='link' className='text-black'><FiUserPlus/></Button>
+          <Button variant='link' className='text-black' onClick={() => setShowForm(true)}><FiUserPlus/></Button>
           </div>
         </Offcanvas.Header>
         <Offcanvas.Body>
