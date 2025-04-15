@@ -5,10 +5,27 @@ import PhoneInput from "react-phone-number-input";
 
 const ContactForm = () => {
   //PhoneInput component prepends country code to phone number automatically (E.164 format)
-  const [phoneNumber, setPhoneNumber] = useState();
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    const contactData = {
+        ...formData,
+        phone: phoneNumber,
+    }
+    console.log('Form Data:', contactData);
   };
 
   return (
@@ -26,6 +43,8 @@ const ContactForm = () => {
                 className="form-control"
                 id="firstName"
                 name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
               />
             </div>
             <div className="input-group py-3">
@@ -35,12 +54,13 @@ const ContactForm = () => {
                 className="form-control"
                 id="lastName"
                 name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
               />
             </div>
             <div className="input-group py-3">
               <span className="input-group-text">Phone:</span>
               <PhoneInput
-                type="tel"
                 className="form-control"
                 id="phone"
                 name="phone"
