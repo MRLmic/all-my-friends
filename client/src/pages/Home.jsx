@@ -7,7 +7,7 @@ import ContactForm from '../components/ContactForm';
 import dummyContacts from './../DummyContactList.json';
 
 const Home = () => {
-    const [selectedContact, setSelectedContact] = useState({});
+    const [selectedContact, setSelectedContact] = useState(null);
     const [showForm, setShowForm] = useState(false);
 
     const selectContact = (contact) => {
@@ -23,7 +23,7 @@ const Home = () => {
                 </div>
                 <div className="col-md-10">
                     {showForm && <ContactForm setShowForm={setShowForm}/>}
-                    {!showForm && <ContactDetails selectedContact={selectedContact}/>}
+                    {!showForm && selectedContact && <ContactDetails selectedContact={selectedContact}/>}
                 </div>
             </div>
         </div>
