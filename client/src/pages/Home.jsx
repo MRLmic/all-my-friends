@@ -23,7 +23,7 @@ const Home = () => {
                 </div>
                 <div className="col-md-10">
                     {showForm && <ContactForm setShowForm={setShowForm}/>}
-                    <ContactDetails selectedContact={selectedContact}/>
+                    {!showForm && <ContactDetails selectedContact={selectedContact}/>}
                 </div>
             </div>
         </div>
