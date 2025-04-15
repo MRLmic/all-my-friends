@@ -1,17 +1,32 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import PhoneInput from "react-phone-number-input";
 import { VscSave } from "react-icons/vsc";
 import { MdOutlineCancel } from "react-icons/md";
 
-const ContactForm = ({ setShowForm }) => {
+const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
   //PhoneInput component prepends country code to phone number automatically (E.164 format)
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState( editContactForm ? selectedContact.phone : "" );
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    firstName: editContactForm ? selectedContact.firstName : "",
+    lastName: editContactForm ? selectedContact.lastName : "",
   });
+
+    useEffect(() => {
+    if (selectedContact) {
+      setFormData({
+        firstName: selectedContact.firstName,
+        lastName: selectedContact.lastName,
+      });
+      setPhoneNumber(selectedContact.phone);
+    } else {
+      setFormData({
+        firstName: "",
+        lastName: "",
+      });
+      setPhoneNumber("");
+    }}, [selectedContact]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
