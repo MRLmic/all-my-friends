@@ -3,7 +3,7 @@ import { Offcanvas } from "react-bootstrap";
 
 import ListEntry from "./ListEntry";
 
-const ContactList = () => {
+const ContactList = ({contacts}) => {
   return (
     <div className="contact-list">
       <Offcanvas show={true} placement="start" backdrop={false} scroll={true}>
@@ -11,7 +11,9 @@ const ContactList = () => {
           <Offcanvas.Title>Contact List</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-            <ListEntry />
+            {contacts.map((contact, index) => (
+              <ListEntry key={index} contact={contact} />
+            ))}
         </Offcanvas.Body>
       </Offcanvas>
     </div>
