@@ -22,7 +22,7 @@ const Home = () => {
                     <ContactList contacts={dummyContacts} selectContact={selectContact} setShowForm={setShowForm}/>
                 </div>
                 <div className="col-md-10">
-                    {showForm && <ContactForm />}
+                    {showForm && <ContactForm setShowForm={setShowForm}/>}
                     <ContactDetails selectedContact={selectedContact}/>
                 </div>
             </div>
