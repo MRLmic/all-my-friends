@@ -71,29 +71,31 @@ const ContactForm = ({ setShowForm }) => {
                 defaultCountry="US"
               />
             </div>
-            <div style={{ display: 'inline-block', position: 'relative'}}>
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip id="tooltip-top">Cancel</Tooltip>}
-            >
-              <Button
-                variant="link"
-                className="text-black"
-                onClick={() => setShowForm(false)}
-              >
-                <MdOutlineCancel />
-              </Button>
-            </OverlayTrigger>
-            </div>
-            <div style={{ display: 'inline-block', position: 'relative'}}>
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip id="tooltip-top">Save Contact</Tooltip>}
-            >
-              <Button type="submit" variant="link" className="text-black">
-                <VscSave />
-              </Button>
-            </OverlayTrigger>
+            <div>
+              <div className='d-inline-block'>
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip id="tooltip-top" className='button-tooltip'>Cancel</Tooltip>}
+                >
+                  <Button
+                    variant="link"
+                    className="text-black"
+                    onClick={() => setShowForm(false)}
+                  >
+                    <MdOutlineCancel />
+                  </Button>
+                </OverlayTrigger>
+              </div>
+              <div className='d-inline-block'>
+                <OverlayTrigger
+                  placement="top"
+                  overlay={<Tooltip id="tooltip-top" className='button-tooltip'>Save</Tooltip>}
+                >
+                  <Button type="submit" variant="link" className="text-black">
+                    <VscSave />
+                  </Button>
+                </OverlayTrigger>
+              </div>
             </div>
           </form>
         </div>

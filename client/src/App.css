@@ -8,3 +8,12 @@
 .home {
   min-height: 70vh;
 }
+
+/* Contact Form */
+.button-tooltip {
+  position: fixed;
+}
+
+.list-entry {
+  font-weight: bold;
+}
