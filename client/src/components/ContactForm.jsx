@@ -7,13 +7,15 @@ import { MdOutlineCancel } from "react-icons/md";
 
 const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
   //PhoneInput component prepends country code to phone number automatically (E.164 format)
-  const [phoneNumber, setPhoneNumber] = useState( editContactForm ? selectedContact.phone : "" );
+  const [phoneNumber, setPhoneNumber] = useState(
+    editContactForm ? selectedContact.phone : ""
+  );
   const [formData, setFormData] = useState({
     firstName: editContactForm ? selectedContact.firstName : "",
     lastName: editContactForm ? selectedContact.lastName : "",
   });
 
-    useEffect(() => {
+  useEffect(() => {
     if (selectedContact) {
       setFormData({
         firstName: selectedContact.firstName,
@@ -26,7 +28,8 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
         lastName: "",
       });
       setPhoneNumber("");
-    }}, [selectedContact]);
+    }
+  }, [selectedContact]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,13 +45,27 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
       ...formData,
       phone: phoneNumber,
     };
+
+    editContactForm
+      ? handlePutRequest(contactData)
+      : handlePostRequest(contactData);
     console.log("Form Data:", contactData);
+  };
+
+  //   TODO after BE integrated
+  const handlePutRequest = (contactData) => {
+    //     need contact ID
+    console.log("PUT request with data:", contactData);
+  };
+
+  const handlePostRequest = (contactData) => {
+    console.log("POST request with data:", contactData);
   };
 
   return (
     <div className="contact-form">
       <div className="row mx-auto text-center">
-        <div>{editContactForm ? 'Edit' : 'Add New'} Contact</div>
+        <div>{editContactForm ? "Edit" : "Add New"} Contact</div>
       </div>
       <div className="row">
         <div className="col-md-4 mx-auto">
@@ -87,10 +104,14 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
               />
             </div>
             <div>
-              <div className='d-inline-block'>
+              <div className="d-inline-block">
                 <OverlayTrigger
                   placement="top"
-                  overlay={<Tooltip id="tooltip-top" className='button-tooltip'>Cancel</Tooltip>}
+                  overlay={
+                    <Tooltip id="tooltip-top" className="button-tooltip">
+                      Cancel
+                    </Tooltip>
+                  }
                 >
                   <Button
                     variant="link"
@@ -101,10 +122,14 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
                   </Button>
                 </OverlayTrigger>
               </div>
-              <div className='d-inline-block'>
+              <div className="d-inline-block">
                 <OverlayTrigger
                   placement="top"
-                  overlay={<Tooltip id="tooltip-top" className='button-tooltip'>Save</Tooltip>}
+                  overlay={
+                    <Tooltip id="tooltip-top" className="button-tooltip">
+                      Save
+                    </Tooltip>
+                  }
                 >
                   <Button type="submit" variant="link" className="text-black">
                     <VscSave />
