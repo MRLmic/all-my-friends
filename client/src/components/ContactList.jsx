@@ -6,7 +6,7 @@ import ListEntry from "./ListEntry";
 const ContactList = () => {
   return (
     <div className="contact-list">
-      <Offcanvas show={true} placement={"start"}>
+      <Offcanvas show={true} placement="start" backdrop={false} scroll={true}>
         <Offcanvas.Header>
           <Offcanvas.Title>Contact List</Offcanvas.Title>
         </Offcanvas.Header>
