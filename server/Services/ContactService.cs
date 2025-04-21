@@ -12,12 +12,25 @@ namespace Server.Services
             _context = context;
         }
 
-        public async Task<List<Contact>> GetContacts()
+        public async Task<List<ContactDto>> GetContacts()
         {
 
             return await _context.Contacts
                         .Include(c => c.ContactDetails)
-                        .ToListAsync();
+                        .Select(c => new ContactDto
+                   {
+                       Id = c.Id,
+                       FirstName = c.FirstName,
+                       LastName = c.LastName,
+                       ContactDetails = c.ContactDetails.Select(d => new ContactDetail
+                       {
+                           Id = d.Id,
+                           Label = d.Label,
+                           PhoneNumber = d.PhoneNumber,
+                           Region = d.Region
+                       }).ToList()
+                   })
+                   .ToListAsync();
         }
 
         public async Task<ContactDto> GetContact(int id)
@@ -36,8 +49,13 @@ namespace Server.Services
                 Id = contact.Id,
                 FirstName = contact.FirstName,
                 LastName = contact.LastName,
-                Label = contact.ContactDetails.FirstOrDefault()?.Label,
-                Phone = contact.ContactDetails.FirstOrDefault()?.PhoneNumber
+                ContactDetails = contact.ContactDetails.Select(d => new ContactDetail
+                       {
+                           Id = d.Id,
+                           Label = d.Label,
+                           PhoneNumber = d.PhoneNumber,
+                           Region = d.Region
+                       }).ToList()
             };
         }
     }
