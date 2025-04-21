@@ -42,6 +42,10 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ContactsDbContext>();
     dbContext.Database.Migrate();
+    if (builder.Environment.IsDevelopment())
+    {
+        ContactsDbContext.SeedDatabase(dbContext);
+    }
 }
 
 
