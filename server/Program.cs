@@ -25,6 +25,14 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+//TODO - Add Try/Catch block
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<ContactsDbContext>();
+    dbContext.Database.Migrate();
+}
+
+
 app.UseCors("AllowViteDev");
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
