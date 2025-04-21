@@ -1,11 +1,15 @@
 using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore;
+using Server.Data;
+using Server.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddDbContext<ContactsDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddScoped<ContactService>();
 
 builder.Services.AddCors(options =>
 {

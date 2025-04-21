@@ -1,4 +1,9 @@
+using System.Text.Json;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Server.Data;
+using Server.Models;
+using Server.Services;
 
 namespace Server.Controllers
 {
@@ -6,11 +11,27 @@ namespace Server.Controllers
     [Route("api/[controller]")]
     public class ContactsController : ControllerBase
     {
+
+        private readonly ContactService _contactService;
+        public ContactsController(ContactService contactService)
+        {
+            _contactService = contactService;
+        }
+
         // GET: api/contacts
         [HttpGet]
-        public IActionResult GetAllContacts()
+        public async Task<IActionResult> GetAllContacts()
         {
-            return Ok(new { Message = "Get all contacts" });
+            try
+            {
+                var contacts = await _contactService.GetContacts();
+                return Ok(contacts);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
+            }
+            
         }
 
         // GET: api/contacts/{id}
@@ -21,11 +42,20 @@ namespace Server.Controllers
         }
 
         // POST: api/contacts
-        [HttpPost]
-        public IActionResult CreateContact([FromBody] object contact)
-        {
-            return CreatedAtAction(nameof(GetContactById), new { id = 1 }, contact);
-        }
+        // [HttpPost]
+        // public async Task<IActionResult> CreateContact([FromBody] ContactDto contact)
+        // {
+        //     try {
+        //         ContactService contactService = new ContactService();
+        //         Contact newContact = await contactService.AddContact(contact);
+        //         return CreatedAtAction(nameof(GetContactById), new { id = newContact.Id }, newContact);
+        //     }
+        //     catch (Exception ex)
+        //     {
+        //         return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
+        //     }
+
+        // }
 
         // PUT: api/contacts/{id}
         [HttpPut("{id}")]
