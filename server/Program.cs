@@ -1,6 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using Npgsql.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<ContactsDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowViteDev", policy =>
