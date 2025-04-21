@@ -1,3 +1,5 @@
+using System.Text.Json.Serialization;
+
 namespace Server.Models
 {
     public class ContactDetail
@@ -8,6 +10,7 @@ namespace Server.Models
         public string Label { get; set; }
         public int ContactId { get; set; }
 
+        [JsonIgnore] //TODO - Remove after DTO is mapped
         public Contact? Contact { get; set; }
     }
 }

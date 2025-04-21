@@ -8,14 +8,15 @@ namespace Server.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        public ICollection<ContactDetail> ContactDetails { get; private set; } 
+        public ICollection<ContactDetail> ContactDetails { get; set; } 
 
         public Contact(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
+            ContactDetails = new List<ContactDetail>();
         }
 
-        private Contact() {}
+        public Contact() {}
     }
 }
