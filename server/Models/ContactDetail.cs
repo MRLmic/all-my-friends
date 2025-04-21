@@ -7,5 +7,7 @@ namespace Server.Models
         public string Region { get; set; }
         public string Label { get; set; }
         public int ContactId { get; set; }
+
+        public Contact? Contact { get; set; }
     }
 }
