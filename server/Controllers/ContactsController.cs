@@ -30,15 +30,22 @@ namespace Server.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
-            }
-            
+            } 
         }
 
         // GET: api/contacts/{id}
         [HttpGet("{id}")]
-        public IActionResult GetContactById(int id)
+        public async Task<IActionResult> GetContactById(int id)
         {
-            return Ok(new { Message = $"Get contact with ID {id}" });
+            try
+            {
+                var contact = await _contactService.GetContact(id);
+                return Ok(contact);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
+            }
         }
 
         // POST: api/contacts
