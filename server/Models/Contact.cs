@@ -10,7 +10,7 @@ namespace Server.Models
 
         public ICollection<ContactDetail> ContactDetails { get; set; } = new List<ContactDetail>();
 
-        public Contact(string firstName, string lastName, string phoneNumber)
+        public Contact(string firstName, string lastName)
         {
             FirstName = firstName;
             LastName = lastName;
