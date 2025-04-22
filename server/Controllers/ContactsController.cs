@@ -48,21 +48,20 @@ namespace Server.Controllers
             }
         }
 
-        // POST: api/contacts
-        // [HttpPost]
-        // public async Task<IActionResult> CreateContact([FromBody] ContactDto contact)
-        // {
-        //     try {
-        //         ContactService contactService = new ContactService();
-        //         Contact newContact = await contactService.AddContact(contact);
-        //         return CreatedAtAction(nameof(GetContactById), new { id = newContact.Id }, newContact);
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
-        //     }
+        //POST: api/contacts
+        [HttpPost]
+        public async Task<IActionResult> CreateContact([FromBody] ContactDto contact)
+        {
+            try {
+                Contact newContact = await _contactService.AddNewContact(contact);
+                return CreatedAtAction(nameof(GetContactById), new { id = newContact.Id }, newContact);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
+            }
 
-        // }
+        }
 
         // PUT: api/contacts/{id}
         [HttpPut("{id}")]
