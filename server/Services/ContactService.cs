@@ -92,7 +92,36 @@ namespace Server.Services
 
         }
 
-        //Put
+        public async Task<IActionResult> UpdateContact(int id, ContactDto contactDto)
+        {
+            var contact = await _context.Contacts
+                .Include(c => c.ContactDetails)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (contact == null)
+            {
+                return new NotFoundObjectResult(new { Message = "Contact not found" });
+            }
+
+            contact.FirstName = contactDto.FirstName;
+            contact.LastName = contactDto.LastName;
+
+            foreach (var detail in contact.ContactDetails)
+            {
+                var updatedDetail = contactDto.ContactDetails.FirstOrDefault(d => d.Id == detail.Id);
+                if (updatedDetail != null)
+                {
+                    detail.Label = updatedDetail.Label;
+                    detail.PhoneNumber = updatedDetail.PhoneNumber;
+                    detail.Region = updatedDetail.Region;
+                    detail.ContactId = contact.Id;
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return new NoContentResult();
+        }
 
         public async Task<IActionResult> DeleteContact(int id)
         {

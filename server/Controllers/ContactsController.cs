@@ -30,7 +30,7 @@ namespace Server.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
-            } 
+            }
         }
 
         // GET: api/contacts/{id}
@@ -52,7 +52,8 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateContact([FromBody] ContactDto contact)
         {
-            try {
+            try
+            {
                 Contact newContact = await _contactService.AddNewContact(contact);
                 return CreatedAtAction(nameof(GetContactById), new { id = newContact.Id }, newContact);
             }
@@ -65,9 +66,29 @@ namespace Server.Controllers
 
         // PUT: api/contacts/{id}
         [HttpPut("{id}")]
-        public IActionResult UpdateContact(int id, [FromBody] object contact)
+        public async Task<IActionResult> UpdateContact(int id, [FromBody] ContactDto contact)
         {
-            return NoContent();
+            try
+            {
+                var updatedContact = contact;
+
+                if (updatedContact == null)
+                {
+                    return BadRequest(new { Message = "Invalid contact data" });
+                }
+
+                var result = await _contactService.UpdateContact(id, updatedContact);
+                if (result == null)
+                {
+                    return NotFound(new { Message = $"Contact with ID {id} not found." });
+                }
+
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
+            }
         }
 
         // DELETE: api/contacts/{id}
