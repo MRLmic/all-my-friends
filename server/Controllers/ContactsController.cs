@@ -72,9 +72,17 @@ namespace Server.Controllers
 
         // DELETE: api/contacts/{id}
         [HttpDelete("{id}")]
-        public IActionResult DeleteContact(int id)
+        public async Task<IActionResult> DeleteContact(int id)
         {
-            return NoContent();
+            try
+            {
+                await _contactService.DeleteContact(id);
+                return Ok(new { message = $"Contact with ID {id} was deleted." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Message = "Internal server error", Error = ex.Message });
+            }
         }
     }
 }

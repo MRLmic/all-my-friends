@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Server.Data;
@@ -78,7 +79,7 @@ namespace Server.Services
             {
                 detail.Contact = contact;
             }
-            
+
             _context.Contacts.Add(contact);
             await _context.SaveChangesAsync();
 
@@ -92,6 +93,20 @@ namespace Server.Services
         }
 
         //Put
-        //Delete
+
+        public async Task<IActionResult> DeleteContact(int id)
+        {
+            var contact = await _context.FindAsync<Contact>(id);
+            
+            if (contact == null)
+            {
+                return new NotFoundObjectResult(new { Message = "Contact not found" });
+            }
+
+            _context.Contacts.Remove(contact);
+            await _context.SaveChangesAsync();
+
+            return new NoContentResult();
+        }
     }
 }
