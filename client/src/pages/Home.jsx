@@ -4,8 +4,6 @@ import ContactList from "../components/ContactList";
 import ContactDetails from "../components/ContactDetails";
 import ContactForm from "../components/ContactForm";
 
-import dummyContacts from "./../DummyContactList.json";
-
 const Home = () => {
   const [selectedContact, setSelectedContact] = useState(null);
   const [showForm, setShowForm] = useState(false);
