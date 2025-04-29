@@ -1,8 +1,11 @@
 import React from "react";
+import { formatPhoneNumber, formatPhoneNumberIntl } from 'react-phone-number-input'
 
 import ListGroup from "react-bootstrap/ListGroup";
 
 const ContactDetailsItem = ({ label, region, phoneNumber }) => {
+    phoneNumber = region === "US" ? formatPhoneNumber(phoneNumber) : formatPhoneNumberIntl(phoneNumber);
+
   return (
     <div className="col-md-6 mx-auto contact-details-list">
       <ListGroup horizontal className="py-1">
