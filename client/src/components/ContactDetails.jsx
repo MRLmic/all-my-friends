@@ -18,25 +18,27 @@ const ContactDetails = ({ selectedContact, setEditContactForm, setShowForm }) =>
   return (
     <div className="contact-details">
       <div>Details</div>
-      <div className="d-inline-block">
-        <Button variant="outline-info" onClick={() => handleEditClick()}>
+      <div className="fw-semibold my-4 h1">
+        {firstName} {lastName}
+      </div>
+      <div className="d-inline-block mb-2">
+        <Button className="mx-1" variant="outline-info" onClick={() => handleEditClick()}>
           <MdModeEdit className="edit-icon" />
         </Button>
-        <Button variant="outline-danger">
+        <Button className="mx-1" variant="outline-danger">
           <LuTrash className="delete-icon" />
         </Button>
       </div>
       <div>
-        {firstName} {lastName}
-      </div>
       {contactDetails.map((contactDetail, index) => (
         <ContactDetailsItem
           key={index}
           label={contactDetail.label}
-          phoneNumber={contactDetail.phoneNumber}
           region={contactDetail.region}
+          phoneNumber={contactDetail.phoneNumber}
         />
       ))}
+      </div>
     </div>
   );
 };
