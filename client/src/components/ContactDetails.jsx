@@ -4,8 +4,11 @@ import { Button } from "react-bootstrap";
 import { MdModeEdit } from "react-icons/md";
 import { LuTrash } from "react-icons/lu";
 
+import ContactDetailsItem from "./ContactDetailsItem";
+
 const ContactDetails = ({ selectedContact, setEditContactForm, setShowForm }) => {
-  const { firstName, lastName, phone } = selectedContact;
+  const { firstName, lastName, contactDetails } = selectedContact;
+
 
   const handleEditClick = () => {
     setEditContactForm(true);
@@ -26,7 +29,14 @@ const ContactDetails = ({ selectedContact, setEditContactForm, setShowForm }) =>
       <div>
         {firstName} {lastName}
       </div>
-      <div>{phone}</div>
+      {contactDetails.map((contactDetail, index) => (
+        <ContactDetailsItem
+          key={index}
+          label={contactDetail.label}
+          phoneNumber={contactDetail.phoneNumber}
+          region={contactDetail.region}
+        />
+      ))}
     </div>
   );
 };
