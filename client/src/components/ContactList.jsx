@@ -4,7 +4,7 @@ import { FiUserPlus } from "react-icons/fi";
 
 import ListEntry from "./ListEntry";
 
-const ContactList = ({contacts, setSelectedContact, setShowForm, setEditContactForm}) => {
+const ContactList = ({contacts, setSelectedContact, selectedContact, setShowForm, setEditContactForm}) => {
 
     const handleAddContact = () => {
         setShowForm(true);
@@ -19,7 +19,7 @@ const ContactList = ({contacts, setSelectedContact, setShowForm, setEditContactF
     }
 
   return (
-    <div className="contact-list">
+    <div className="contact-list urbanist-extra-light">
       <Offcanvas show={true} placement="start" backdrop={false} scroll={true}>
         <Offcanvas.Header>
             <div>
@@ -29,7 +29,7 @@ const ContactList = ({contacts, setSelectedContact, setShowForm, setEditContactF
         </Offcanvas.Header>
         <Offcanvas.Body>
             {contacts.map((contact, index) => (
-              <ListEntry key={index} contact={contact} onClick={() => handleSelectContact(contact)}/>
+              <ListEntry key={index} contact={contact} active={selectedContact?.id === contact.id} onClick={() => handleSelectContact(contact)}/>
             ))}
         </Offcanvas.Body>
       </Offcanvas>

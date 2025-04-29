@@ -9,11 +9,24 @@
   min-height: 70vh;
 }
 
+.list-group-item.active {
+  background-color: #605ab8; 
+  border-color: #6f42c1;
+  color: rgb(251, 229, 238);
+}
+
 /* Contact Form */
 .button-tooltip {
   position: fixed;
 }
 
-.list-entry {
-  font-weight: bold;
+.contact-details-item {
+  text-wrap: nowrap;
+}
+
+.urbanist-extra-light {
+  font-family: "Urbanist", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 200;
+  font-style: normal;
 }

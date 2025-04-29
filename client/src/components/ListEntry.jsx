@@ -1,11 +1,16 @@
 import React from 'react';
 
-const ListEntry = ({contact, onClick}) => {
+import ListGroup from 'react-bootstrap/ListGroup';
+
+const ListEntry = ({contact, onClick, active}) => {
     const { firstName, lastName } = contact;
+
     return (
-        <div className="list-entry" onClick={onClick}>
-            <div>{firstName} {lastName}</div>
-        </div>
+        <ListGroup variant="flush" >
+            <ListGroup.Item action onClick={onClick} active={active}>
+                {firstName} {lastName}
+            </ListGroup.Item>
+        </ListGroup>
     );
 };
 

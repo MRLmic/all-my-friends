@@ -32,6 +32,7 @@ const Home = () => {
           <ContactList
             contacts={contacts}
             setSelectedContact={setSelectedContact}
+            selectedContact={selectedContact}
             setShowForm={setShowForm}
             setEditContactForm={setEditContactForm}
           />
