@@ -1,12 +1,18 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 
+//PhoneInput component prepends country code to phone number automatically (E.164 format)
 import PhoneInput from "react-phone-number-input";
 
 const ContactDetailForm = ({ detail, handleDetailEdit }) => {
   const { phoneNumber, region, label } = detail || {};
-  //PhoneInput component prepends country code to phone number automatically (E.164 format)
-  
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    console.log('detail:', name, value);
+    handleDetailEdit({ [name]: value });
+  }
+
   return (
     <Card>
       <Card.Body>
@@ -18,7 +24,7 @@ const ContactDetailForm = ({ detail, handleDetailEdit }) => {
             id="label"
             name="label"
             value={label}
-            onChange={(value) => handleDetailEdit({ label: value })}
+            onChange={handleChange}
           />
         </div>
         <div className="input-group py-3">

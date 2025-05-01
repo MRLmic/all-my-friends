@@ -1,35 +1,22 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
-import PhoneInput from "react-phone-number-input";
 import { VscSave } from "react-icons/vsc";
 import { MdOutlineCancel } from "react-icons/md";
 
+import ContactDetailForm from "./ContactDetailForm";
+import api from "../api/contacts.js";
+
 const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
-  //PhoneInput component prepends country code to phone number automatically (E.164 format)
-  const [phoneNumber, setPhoneNumber] = useState(
-    editContactForm ? selectedContact.phone : ""
+  const [contactDetails, setContactDetails] = useState(
+    editContactForm
+      ? selectedContact.contactDetails
+      : [{ id: crypto.randomUUID(), phoneNumber: "", region: "", label: "" }]
   );
   const [formData, setFormData] = useState({
     firstName: editContactForm ? selectedContact.firstName : "",
     lastName: editContactForm ? selectedContact.lastName : "",
   });
-
-  useEffect(() => {
-    if (selectedContact) {
-      setFormData({
-        firstName: selectedContact.firstName,
-        lastName: selectedContact.lastName,
-      });
-      setPhoneNumber(selectedContact.phone);
-    } else {
-      setFormData({
-        firstName: "",
-        lastName: "",
-      });
-      setPhoneNumber("");
-    }
-  }, [selectedContact]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,11 +26,20 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
     }));
   };
 
+  const handleDetailEdit = (detailId, detailUpdate) => {
+    console.log("Detail ID:", detailId);
+    setContactDetails((prevContactDetails) =>
+      prevContactDetails.map((contactDetail) =>
+        contactDetail.id === detailId ? { ...contactDetail, ...detailUpdate } : contactDetail
+      )
+    );
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const contactData = {
       ...formData,
-      phone: phoneNumber,
+      contactDetails: contactDetails,
     };
 
     editContactForm
@@ -52,9 +48,19 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
     console.log("Form Data:", contactData);
   };
 
-  //   TODO after BE integrated
   const handlePutRequest = (contactData) => {
-    //     need contact ID
+    const updateContact = async () => {
+      try {
+        const updatedContact = await api.updateContact(
+          selectedContact.id,
+          contactData
+        );
+        console.log("Updated contact:", updatedContact);
+      } catch (error) {
+        console.error("Failed to fetch contacts", error);
+      }
+    };
+    updateContact();
     console.log("PUT request with data:", contactData);
   };
 
@@ -92,17 +98,15 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
                 onChange={handleChange}
               />
             </div>
-            <div className="input-group py-3">
-              <span className="input-group-text">Phone:</span>
-              <PhoneInput
-                className="form-control"
-                id="phone"
-                name="phone"
-                value={phoneNumber}
-                onChange={setPhoneNumber}
-                defaultCountry="US"
+            {contactDetails.map((detail, index) => (
+              <ContactDetailForm
+                key={index}
+                detail={detail}
+                handleDetailEdit={(detailUpdates) =>
+                  handleDetailEdit(detail.id, detailUpdates)
+                }
               />
-            </div>
+            ))}
             <div>
               <div className="d-inline-block">
                 <OverlayTrigger
