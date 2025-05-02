@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { VscSave } from "react-icons/vsc";
 import { MdOutlineCancel } from "react-icons/md";
+import { TbPhonePlus } from "react-icons/tb";
 
 import ContactDetailForm from "./ContactDetailForm";
 import api from "../api/contacts.js";
@@ -97,6 +98,12 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
                 value={formData.lastName}
                 onChange={handleChange}
               />
+            </div>
+            <div className="d-grid gap-2 mb-3">
+            <Button variant="outline-success" size="lg">
+              <TbPhonePlus />
+              &nbsp;Add New
+            </Button>
             </div>
             {contactDetails.map((detail, index) => (
               <ContactDetailForm
