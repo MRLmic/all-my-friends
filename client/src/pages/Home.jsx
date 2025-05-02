@@ -25,6 +25,10 @@ const Home = () => {
     fetchContacts();
   }, []);
 
+  const handleAddDetailClick = () => {
+    console.log("Add details clicked");
+  }
+
   return (
     <div className="home mt-5">
       <div className="row">
@@ -43,6 +47,7 @@ const Home = () => {
               setShowForm={setShowForm}
               editContactForm={editContactForm}
               selectedContact={selectedContact}
+              handleAddDetailClick={handleAddDetailClick}
             />
           )}
           {!showForm && selectedContact && (
@@ -50,6 +55,7 @@ const Home = () => {
               selectedContact={selectedContact}
               setEditContactForm={setEditContactForm}
               setShowForm={setShowForm}
+              handleAddDetailClick={handleAddDetailClick}
             />
           )}
         </div>

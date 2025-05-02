@@ -8,7 +8,7 @@ import { TbPhonePlus } from "react-icons/tb";
 import ContactDetailForm from "./ContactDetailForm";
 import api from "../api/contacts.js";
 
-const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
+const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddDetailClick }) => {
   const [contactDetails, setContactDetails] = useState(
     editContactForm
       ? selectedContact.contactDetails
@@ -100,7 +100,7 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact }) => {
               />
             </div>
             <div className="d-grid gap-2 mb-3">
-            <Button variant="outline-success" size="lg">
+            <Button variant="outline-success" size="lg" onClick={handleAddDetailClick}>
               <TbPhonePlus />
               &nbsp;Add New
             </Button>

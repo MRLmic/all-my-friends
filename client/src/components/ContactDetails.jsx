@@ -11,16 +11,13 @@ const ContactDetails = ({
   selectedContact,
   setEditContactForm,
   setShowForm,
+  handleAddDetailClick
 }) => {
   const { firstName, lastName, contactDetails } = selectedContact;
 
   const handleEditClick = () => {
     setEditContactForm(true);
     setShowForm(true);
-  };
-
-  const handleAddDetailsClick = () => {
-    console.log("Add details clicked");
   };
 
   return (
@@ -33,7 +30,7 @@ const ContactDetails = ({
         <Button
           className="mx-1"
           variant="outline-success"
-          onClick={() => handleAddDetailsClick()}
+          onClick={() => handleAddDetailClick()}
         >
           <TbPhonePlus />
         </Button>
