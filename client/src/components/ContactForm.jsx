@@ -8,7 +8,7 @@ import { TbPhonePlus } from "react-icons/tb";
 import ContactDetailForm from "./ContactDetailForm";
 import api from "../api/contacts.js";
 
-const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddDetailClick }) => {
+const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddDetailClick, addDetailsForm, setAddDetailsForm }) => {
   const [contactDetails, setContactDetails] = useState(
     editContactForm
       ? selectedContact.contactDetails
@@ -35,6 +35,10 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddD
       )
     );
   };
+
+  const handleDetailAdd = () => {
+    console.log("New Detail Click")
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -68,6 +72,11 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddD
   const handlePostRequest = (contactData) => {
     console.log("POST request with data:", contactData);
   };
+
+  const handleCancel = () => {
+    setShowForm(false);
+    setAddDetailsForm(false);
+  }
 
   return (
     <div className="contact-form">
@@ -105,15 +114,19 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddD
               &nbsp;Add New
             </Button>
             </div>
-            {contactDetails.map((detail, index) => (
+            {contactDetails.map((detail) => (
               <ContactDetailForm
-                key={index}
+                key={detail.id}
                 detail={detail}
                 handleDetailEdit={(detailUpdates) =>
                   handleDetailEdit(detail.id, detailUpdates)
                 }
               />
             ))}
+            {addDetailsForm && <ContactDetailForm>
+              handleDetailAdd={handleDetailAdd}
+              addDetailsForm={addDetailsForm}
+            </ContactDetailForm>}
             <div>
               <div className="d-inline-block">
                 <OverlayTrigger
@@ -127,7 +140,7 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddD
                   <Button
                     variant="link"
                     className="text-black"
-                    onClick={() => setShowForm(false)}
+                    onClick={() => handleCancel()}
                   >
                     <MdOutlineCancel />
                   </Button>

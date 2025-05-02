@@ -9,6 +9,7 @@ const Home = () => {
   const [contacts, setContacts] = useState([]);
   const [selectedContact, setSelectedContact] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [addDetailsForm, setAddDetailsForm] = useState(false);
   const [editContactForm, setEditContactForm] = useState(false);
 
   useEffect(() => {
@@ -26,7 +27,9 @@ const Home = () => {
   }, []);
 
   const handleAddDetailClick = () => {
-    console.log("Add details clicked");
+    setShowForm(true);
+    setAddDetailsForm(true);
+    setEditContactForm(true);
   }
 
   return (
@@ -47,6 +50,8 @@ const Home = () => {
               setShowForm={setShowForm}
               editContactForm={editContactForm}
               selectedContact={selectedContact}
+              addDetailsForm={addDetailsForm}
+              setAddDetailsForm={setAddDetailsForm}
               handleAddDetailClick={handleAddDetailClick}
             />
           )}

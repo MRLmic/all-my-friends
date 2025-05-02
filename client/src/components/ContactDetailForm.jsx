@@ -14,7 +14,7 @@ const ContactDetailForm = ({ detail, handleDetailEdit }) => {
   }
 
   return (
-    <Card>
+    <Card className="mt-3">
       <Card.Body>
         <div className="input-group py-3">
           <span className="input-group-text">Label:</span>
