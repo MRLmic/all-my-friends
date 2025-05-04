@@ -27,11 +27,12 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddD
     }));
   };
 
-  const handleDetailEdit = (detailId, detailUpdate) => {
-    console.log("Detail ID:", detailId);
-    setContactDetails((prevContactDetails) =>
-      prevContactDetails.map((contactDetail) =>
-        contactDetail.id === detailId ? { ...contactDetail, ...detailUpdate } : contactDetail
+
+  const handleDetailChange = (index, updatedFields) => {
+    console.log('index:', index, 'updatedFields:', updatedFields);
+    setContactDetails((prevDetails) =>
+      prevDetails.map((detail, i) =>
+        i === index ? { ...detail, ...updatedFields } : detail
       )
     );
   };
@@ -114,19 +115,14 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddD
               &nbsp;Add New
             </Button>
             </div>
-            {contactDetails.map((detail) => (
+            {contactDetails.map((detail, index) => (
               <ContactDetailForm
-                key={detail.id}
+                key={detail.id || index}
+                index={index}
                 detail={detail}
-                handleDetailEdit={(detailUpdates) =>
-                  handleDetailEdit(detail.id, detailUpdates)
-                }
+                handleDetailChange={handleDetailChange}
               />
             ))}
-            {addDetailsForm && <ContactDetailForm>
-              handleDetailAdd={handleDetailAdd}
-              addDetailsForm={addDetailsForm}
-            </ContactDetailForm>}
             <div>
               <div className="d-inline-block">
                 <OverlayTrigger

@@ -4,13 +4,14 @@ import { Card } from "react-bootstrap";
 //PhoneInput component prepends country code to phone number automatically (E.164 format)
 import PhoneInput from "react-phone-number-input";
 
-const ContactDetailForm = ({ detail, handleDetailEdit }) => {
-  const { phoneNumber, region, label } = detail || {};
+const ContactDetailForm = ({ index, detail, handleDetailChange }) => {
+  const { phoneNumber, region, label } = detail;
 
   const handleChange = (e) => {
+    console.log(e.target)
     const { name, value } = e.target;
     console.log('detail:', name, value);
-    handleDetailEdit({ [name]: value });
+    handleDetailChange(index, { [name]: value });
   }
 
   return (
@@ -35,7 +36,7 @@ const ContactDetailForm = ({ detail, handleDetailEdit }) => {
             name="phoneNumber"
             value={phoneNumber}
             region={region}
-            onChange={(value) => handleDetailEdit({ phoneNumber: value })}
+            onChange={(value) => handleDetailChange(index, { phoneNumber: value })}
             defaultCountry="US"
           />
         </div>
