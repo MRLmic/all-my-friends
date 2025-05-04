@@ -8,16 +8,32 @@ import { TbPhonePlus } from "react-icons/tb";
 import ContactDetailForm from "./ContactDetailForm";
 import api from "../api/contacts.js";
 
-const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddDetailClick, addDetailsForm, setAddDetailsForm }) => {
-  const [contactDetails, setContactDetails] = useState(
-    editContactForm
-      ? selectedContact.contactDetails
-      : [{ id: crypto.randomUUID(), phoneNumber: "", region: "", label: "" }]
-  );
+const ContactForm = ({
+  setShowForm,
+  editContactForm,
+  selectedContact,
+  addDetailsForm,
+  setAddDetailsForm,
+}) => {
+  const [contactDetails, setContactDetails] = useState(() => {
+    const newDetail = { id: crypto.randomUUID(), phoneNumber: "", region: "", label: "" };
+  
+    if (editContactForm && !addDetailsForm) {
+      return selectedContact.contactDetails || [];
+    } else if (!editContactForm && addDetailsForm) {
+      return [newDetail];
+    } else if (editContactForm && addDetailsForm) {
+      return [...(selectedContact.contactDetails || []), newDetail];
+    }
+  
+    return [];
+  });
+  
   const [formData, setFormData] = useState({
     firstName: editContactForm ? selectedContact.firstName : "",
     lastName: editContactForm ? selectedContact.lastName : "",
   });
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,6 +43,12 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddD
     }));
   };
 
+  const handleAddDetailClick = () => {
+    setContactDetails((prevContactDetails) => [
+      ...prevContactDetails,
+      { id: crypto.randomUUID(), label: "", phoneNumber: "", region: "" },
+    ]);
+  }
 
   const handleDetailChange = (index, updatedFields) => {
     console.log('index:', index, 'updatedFields:', updatedFields);
@@ -36,10 +58,6 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddD
       )
     );
   };
-
-  const handleDetailAdd = () => {
-    console.log("New Detail Click")
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -77,7 +95,7 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddD
   const handleCancel = () => {
     setShowForm(false);
     setAddDetailsForm(false);
-  }
+  };
 
   return (
     <div className="contact-form">
@@ -110,10 +128,14 @@ const ContactForm = ({ setShowForm, editContactForm, selectedContact, handleAddD
               />
             </div>
             <div className="d-grid gap-2 mb-3">
-            <Button variant="outline-success" size="lg" onClick={handleAddDetailClick}>
-              <TbPhonePlus />
-              &nbsp;Add New
-            </Button>
+              <Button
+                variant="outline-success"
+                size="lg"
+                onClick={handleAddDetailClick}
+              >
+                <TbPhonePlus />
+                &nbsp;Add New
+              </Button>
             </div>
             {contactDetails.map((detail, index) => (
               <ContactDetailForm
