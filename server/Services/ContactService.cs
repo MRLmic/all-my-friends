@@ -92,7 +92,7 @@ namespace Server.Services
 
         }
 
-        public async Task<IActionResult> UpdateContact(int id, ContactDto contactDto)
+        public async Task<Contact?> UpdateContact(int id, ContactDto contactDto)
         {
             var contact = await _context.Contacts
                 .Include(c => c.ContactDetails)
@@ -100,7 +100,7 @@ namespace Server.Services
 
             if (contact == null)
             {
-                return new NotFoundObjectResult(new { Message = "Contact not found" });
+                return null;
             }
 
             contact.FirstName = contactDto.FirstName;
@@ -115,25 +115,34 @@ namespace Server.Services
                         Label = detail.Label,
                         PhoneNumber = detail.PhoneNumber,
                         Region = detail.Region,
-                        ContactId = contact.Id 
+                        ContactId = contact.Id
                     });
                 }
                 else
                 {
-                    var updatedDetail = contactDto.ContactDetails.FirstOrDefault(d => d.Id == detail.Id);
+                    var updatedDetail = contact.ContactDetails.FirstOrDefault(d => d.Id == detail.Id);
                     if (updatedDetail != null)
                     {
-                        detail.Label = updatedDetail.Label;
-                        detail.PhoneNumber = updatedDetail.PhoneNumber;
-                        detail.Region = updatedDetail.Region;
-                        detail.ContactId = contact.Id;
+                        updatedDetail.Label = detail.Label;
+                        updatedDetail.PhoneNumber = detail.PhoneNumber;
+                        updatedDetail.Region = detail.Region;
+                        updatedDetail.ContactId = contact.Id;
                     }
                 }
             }
 
             await _context.SaveChangesAsync();
 
-            return new NoContentResult();
+            var updatedContact = await _context.Contacts
+                .Include(c => c.ContactDetails)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (updatedContact == null)
+            {
+                return null;
+            }
+
+            return updatedContact;
         }
 
         public async Task<IActionResult> DeleteContact(int id)

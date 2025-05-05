@@ -70,20 +70,18 @@ namespace Server.Controllers
         {
             try
             {
-                var updatedContact = contact;
-
-                if (updatedContact == null)
+                if (contact == null)
                 {
                     return BadRequest(new { Message = "Invalid contact data" });
                 }
 
-                var result = await _contactService.UpdateContact(id, updatedContact);
-                if (result == null)
+                var updatedContact = await _contactService.UpdateContact(id, contact);
+                if (updatedContact == null)
                 {
                     return NotFound(new { Message = $"Contact with ID {id} not found." });
                 }
 
-                return Ok(result);
+                return Ok(updatedContact);
             }
             catch (Exception ex)
             {
