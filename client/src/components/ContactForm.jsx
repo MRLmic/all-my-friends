@@ -16,7 +16,7 @@ const ContactForm = ({
   setAddDetailsForm,
 }) => {
   const [contactDetails, setContactDetails] = useState(() => {
-    const newDetail = { id: crypto.randomUUID(), phoneNumber: "", region: "", label: "" };
+    const newDetail = { id: crypto.randomUUID(), phoneNumber: "", region: "", label: "", contactId: selectedContact ? selectedContact.id : 0 };
   
     if (editContactForm && !addDetailsForm) {
       return selectedContact.contactDetails || [];
@@ -34,7 +34,6 @@ const ContactForm = ({
     lastName: editContactForm ? selectedContact.lastName : "",
   });
 
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevData) => ({
@@ -46,7 +45,7 @@ const ContactForm = ({
   const handleAddDetailClick = () => {
     setContactDetails((prevContactDetails) => [
       ...prevContactDetails,
-      { id: crypto.randomUUID(), label: "", phoneNumber: "", region: "" },
+      { label: "", phoneNumber: "", region: "", contactId: selectedContact ? selectedContact.id : 0 }
     ]);
   }
 
@@ -81,7 +80,7 @@ const ContactForm = ({
         );
         console.log("Updated contact:", updatedContact);
       } catch (error) {
-        console.error("Failed to fetch contacts", error);
+        console.error("Could not save updates to contact.", error);
       }
     };
     updateContact();
@@ -89,6 +88,15 @@ const ContactForm = ({
   };
 
   const handlePostRequest = (contactData) => {
+    const createContact = async () => {
+      try {
+        const newContact = await api.createContact(contactData);
+        console.log("Created contact:", newContact);
+      } catch (error) {
+        console.error("Could not save new contact.", error);
+      }
+    };
+    createContact();
     console.log("POST request with data:", contactData);
   };
 
@@ -145,6 +153,13 @@ const ContactForm = ({
                 handleDetailChange={handleDetailChange}
               />
             ))}
+            {addDetailsForm && (
+              <ContactDetailForm
+                key={crypto.randomUUID()}
+                addDetailsForm={addDetailsForm}
+                handleDetailChange={handleDetailChange}
+              ></ContactDetailForm>
+            )}
             <div>
               <div className="d-inline-block">
                 <OverlayTrigger
@@ -173,7 +188,11 @@ const ContactForm = ({
                     </Tooltip>
                   }
                 >
-                  <Button type="submit" variant="link" className="text-black">
+                  <Button 
+                  type="submit" 
+                  variant="link" 
+                  className="text-black">
+                    
                     <VscSave />
                   </Button>
                 </OverlayTrigger>
