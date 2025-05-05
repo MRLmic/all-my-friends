@@ -13,18 +13,26 @@ const Home = () => {
   const [editContactForm, setEditContactForm] = useState(false);
 
   useEffect(() => {
-    const fetchContacts = async () => {
-      try {
-        const data = await api.getContacts();
-        setContacts(data);
-        console.log("Fetched contacts:", data);
-      } catch (error) {
-        console.error("Failed to fetch contacts", error);
-      }
-    };
-
     fetchContacts();
   }, []);
+
+  const fetchContacts = async () => {
+    try {
+      const data = await api.getContacts();
+      setContacts(data);
+      console.log("Fetched contacts:", data);
+    } catch (error) {
+      console.error("Failed to fetch contacts", error);
+    }
+  };
+
+  const handleAddUpdateSuccess = (savedContact) => {
+    setSelectedContact(savedContact);
+    fetchContacts();
+    setShowForm(false);
+    setAddDetailsForm(false);
+    setEditContactForm(false);
+  }
 
   const handleAddDetailClick = () => {
     setShowForm(true);
@@ -54,6 +62,7 @@ const Home = () => {
               addDetailsForm={addDetailsForm}
               setAddDetailsForm={setAddDetailsForm}
               handleAddDetailClick={handleAddDetailClick}
+              handleAddUpdateSuccess={handleAddUpdateSuccess}
             />
           )}
           {!showForm && selectedContact && (

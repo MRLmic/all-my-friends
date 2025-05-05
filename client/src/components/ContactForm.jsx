@@ -14,6 +14,7 @@ const ContactForm = ({
   selectedContact,
   addDetailsForm,
   setAddDetailsForm,
+  handleAddUpdateSuccess
 }) => {
   const [contactDetails, setContactDetails] = useState(() => {
     const newDetail = { phoneNumber: "", region: "", label: "", contactId: selectedContact ? selectedContact.id : 0 };
@@ -78,7 +79,7 @@ const ContactForm = ({
           selectedContact.id,
           contactData
         );
-        console.log("Updated contact:", updatedContact);
+        handleAddUpdateSuccess(updatedContact);
       } catch (error) {
         console.error("Could not save updates to contact.", error);
       }
@@ -91,7 +92,7 @@ const ContactForm = ({
     const createContact = async () => {
       try {
         const newContact = await api.createContact(contactData);
-        console.log("Created contact:", newContact);
+        handleAddUpdateSuccess(newContact);
       } catch (error) {
         console.error("Could not save new contact.", error);
       }

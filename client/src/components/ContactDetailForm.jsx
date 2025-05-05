@@ -8,9 +8,7 @@ const ContactDetailForm = ({ index, detail, handleDetailChange }) => {
   const { phoneNumber, region, label } = detail;
 
   const handleChange = (e) => {
-    console.log(e.target)
     const { name, value } = e.target;
-    console.log('detail:', name, value);
     handleDetailChange(index, { [name]: value });
   }
 
