@@ -106,15 +106,28 @@ namespace Server.Services
             contact.FirstName = contactDto.FirstName;
             contact.LastName = contactDto.LastName;
 
-            foreach (var detail in contact.ContactDetails)
+            foreach (var detail in contactDto.ContactDetails)
             {
-                var updatedDetail = contactDto.ContactDetails.FirstOrDefault(d => d.Id == detail.Id);
-                if (updatedDetail != null)
+                if (detail.Id == 0)
                 {
-                    detail.Label = updatedDetail.Label;
-                    detail.PhoneNumber = updatedDetail.PhoneNumber;
-                    detail.Region = updatedDetail.Region;
-                    detail.ContactId = contact.Id;
+                    contact.ContactDetails.Add(new ContactDetail
+                    {
+                        Label = detail.Label,
+                        PhoneNumber = detail.PhoneNumber,
+                        Region = detail.Region,
+                        ContactId = contact.Id 
+                    });
+                }
+                else
+                {
+                    var updatedDetail = contactDto.ContactDetails.FirstOrDefault(d => d.Id == detail.Id);
+                    if (updatedDetail != null)
+                    {
+                        detail.Label = updatedDetail.Label;
+                        detail.PhoneNumber = updatedDetail.PhoneNumber;
+                        detail.Region = updatedDetail.Region;
+                        detail.ContactId = contact.Id;
+                    }
                 }
             }
 
@@ -126,7 +139,7 @@ namespace Server.Services
         public async Task<IActionResult> DeleteContact(int id)
         {
             var contact = await _context.FindAsync<Contact>(id);
-            
+
             if (contact == null)
             {
                 return new NotFoundObjectResult(new { Message = "Contact not found" });
