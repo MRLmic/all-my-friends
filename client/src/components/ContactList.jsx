@@ -4,12 +4,13 @@ import { FiUserPlus } from "react-icons/fi";
 
 import ListEntry from "./ListEntry";
 
-const ContactList = ({contacts, setSelectedContact, selectedContact, setShowForm, setEditContactForm}) => {
+const ContactList = ({contacts, setSelectedContact, selectedContact, setShowForm, setEditContactForm, setAddDetailsForm}) => {
 
     const handleAddContact = () => {
         setShowForm(true);
         setSelectedContact(null);
         setEditContactForm(false);
+        setAddDetailsForm(true);
     }
 
     const handleSelectContact = (contact) => {

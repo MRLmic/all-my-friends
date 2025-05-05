@@ -42,6 +42,7 @@ const Home = () => {
             selectedContact={selectedContact}
             setShowForm={setShowForm}
             setEditContactForm={setEditContactForm}
+            setAddDetailsForm={setAddDetailsForm}
           />
         </div>
         <div className="col-md-10">

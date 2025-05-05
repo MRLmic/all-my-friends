@@ -16,7 +16,7 @@ const ContactForm = ({
   setAddDetailsForm,
 }) => {
   const [contactDetails, setContactDetails] = useState(() => {
-    const newDetail = { id: crypto.randomUUID(), phoneNumber: "", region: "", label: "", contactId: selectedContact ? selectedContact.id : 0 };
+    const newDetail = { phoneNumber: "", region: "", label: "", contactId: selectedContact ? selectedContact.id : 0 };
   
     if (editContactForm && !addDetailsForm) {
       return selectedContact.contactDetails || [];
@@ -153,13 +153,6 @@ const ContactForm = ({
                 handleDetailChange={handleDetailChange}
               />
             ))}
-            {addDetailsForm && (
-              <ContactDetailForm
-                key={crypto.randomUUID()}
-                addDetailsForm={addDetailsForm}
-                handleDetailChange={handleDetailChange}
-              ></ContactDetailForm>
-            )}
             <div>
               <div className="d-inline-block">
                 <OverlayTrigger
