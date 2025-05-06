@@ -1,5 +1,7 @@
 import React from "react";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
+
+import { LuTrash } from "react-icons/lu";
 
 //PhoneInput component prepends country code to phone number automatically (E.164 format)
 import PhoneInput from "react-phone-number-input";
@@ -38,6 +40,15 @@ const ContactDetailForm = ({ index, detail, handleDetailChange }) => {
             defaultCountry="US"
           />
         </div>
+        <div className="d-grid gap-2 mb-3">
+              <Button
+                variant="outline-danger"
+                size="lg"
+              >
+                <LuTrash />
+                &nbsp;Delete
+              </Button>
+            </div>
       </Card.Body>
     </Card>
   );
