@@ -22,7 +22,6 @@ const ContactDetails = ({
 
   return (
     <div className="contact-details">
-      <div>Details</div>
       <div className="fw-semibold my-4 h1">
         {firstName} {lastName}
       </div>
