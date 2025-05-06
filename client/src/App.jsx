@@ -8,7 +8,6 @@ function App() {
   return (
     <>
       <div className='container-fluid'>
-        All My Friends
         <Home />
       </div>
     </>
