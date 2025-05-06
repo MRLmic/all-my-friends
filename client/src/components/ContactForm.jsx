@@ -14,11 +14,16 @@ const ContactForm = ({
   selectedContact,
   addDetailsForm,
   setAddDetailsForm,
-  handleAddUpdateSuccess
+  handleAddUpdateSuccess,
 }) => {
   const [contactDetails, setContactDetails] = useState(() => {
-    const newDetail = { phoneNumber: "", region: "", label: "", contactId: selectedContact ? selectedContact.id : 0 };
-  
+    const newDetail = {
+      phoneNumber: "",
+      region: "",
+      label: "",
+      contactId: selectedContact ? selectedContact.id : 0,
+    };
+
     if (editContactForm && !addDetailsForm) {
       return selectedContact.contactDetails || [];
     } else if (!editContactForm && addDetailsForm) {
@@ -26,10 +31,12 @@ const ContactForm = ({
     } else if (editContactForm && addDetailsForm) {
       return [...(selectedContact.contactDetails || []), newDetail];
     }
-  
+
     return [];
   });
-  
+
+  const [detailsForDelete, setDetailsForDelete] = useState([]);
+
   const [formData, setFormData] = useState({
     firstName: editContactForm ? selectedContact.firstName : "",
     lastName: editContactForm ? selectedContact.lastName : "",
@@ -46,12 +53,17 @@ const ContactForm = ({
   const handleAddDetailClick = () => {
     setContactDetails((prevContactDetails) => [
       ...prevContactDetails,
-      { label: "", phoneNumber: "", region: "", contactId: selectedContact ? selectedContact.id : 0 }
+      {
+        label: "",
+        phoneNumber: "",
+        region: "",
+        contactId: selectedContact ? selectedContact.id : 0,
+      },
     ]);
-  }
+  };
 
   const handleDetailChange = (index, updatedFields) => {
-    console.log('index:', index, 'updatedFields:', updatedFields);
+    console.log("index:", index, "updatedFields:", updatedFields);
     setContactDetails((prevDetails) =>
       prevDetails.map((detail, i) =>
         i === index ? { ...detail, ...updatedFields } : detail
@@ -59,15 +71,34 @@ const ContactForm = ({
     );
   };
 
+  const handleDetailDelete = (index) => {
+    setDetailsForDelete((prevDetails) => [
+      ...prevDetails,
+      contactDetails[index].id,
+    ]);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    const updatedContactDetails = contactDetails.filter(
+      (detail) => !detailsForDelete.includes(detail.id)
+    );
+
     const contactData = {
       ...formData,
-      contactDetails: contactDetails,
+      contactDetails: updatedContactDetails,
+    };
+
+    const updateContactData = {
+      contact: {
+        ...formData,
+        contactDetails: updatedContactDetails,
+      },
+      detailsForDelete: detailsForDelete,
     };
 
     editContactForm
-      ? handlePutRequest(contactData)
+      ? handlePutRequest(updateContactData)
       : handlePostRequest(contactData);
     console.log("Form Data:", contactData);
   };
@@ -104,6 +135,7 @@ const ContactForm = ({
   const handleCancel = () => {
     setShowForm(false);
     setAddDetailsForm(false);
+    setDetailsForDelete([]);
   };
 
   return (
@@ -151,7 +183,9 @@ const ContactForm = ({
                 key={detail.id || index}
                 index={index}
                 detail={detail}
+                hideDetail={detailsForDelete.includes(detail.id)}
                 handleDetailChange={handleDetailChange}
+                handleDetailDelete={() => handleDetailDelete(index)}
               />
             ))}
             <div>
@@ -182,11 +216,7 @@ const ContactForm = ({
                     </Tooltip>
                   }
                 >
-                  <Button 
-                  type="submit" 
-                  variant="link" 
-                  className="text-black">
-                    
+                  <Button type="submit" variant="link" className="text-black">
                     <VscSave />
                   </Button>
                 </OverlayTrigger>

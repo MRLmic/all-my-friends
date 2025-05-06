@@ -6,7 +6,7 @@ import { LuTrash } from "react-icons/lu";
 //PhoneInput component prepends country code to phone number automatically (E.164 format)
 import PhoneInput from "react-phone-number-input";
 
-const ContactDetailForm = ({ index, detail, handleDetailChange }) => {
+const ContactDetailForm = ({ index, detail, handleDetailChange, handleDetailDelete, hideDetail }) => {
   const { phoneNumber, region, label } = detail;
 
   const handleChange = (e) => {
@@ -14,7 +14,7 @@ const ContactDetailForm = ({ index, detail, handleDetailChange }) => {
     handleDetailChange(index, { [name]: value });
   }
 
-  return (
+  return !hideDetail && (
     <Card className="mt-3">
       <Card.Body>
         <div className="input-group py-3">
@@ -44,6 +44,7 @@ const ContactDetailForm = ({ index, detail, handleDetailChange }) => {
               <Button
                 variant="outline-danger"
                 size="lg"
+                onClick={handleDetailDelete}
               >
                 <LuTrash />
                 &nbsp;Delete
@@ -52,6 +53,7 @@ const ContactDetailForm = ({ index, detail, handleDetailChange }) => {
       </Card.Body>
     </Card>
   );
-};
+}
+
 
 export default ContactDetailForm;
