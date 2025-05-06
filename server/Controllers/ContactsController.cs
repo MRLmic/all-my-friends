@@ -66,16 +66,17 @@ namespace Server.Controllers
 
         // PUT: api/contacts/{id}
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateContact(int id, [FromBody] ContactDto contact)
+        public async Task<IActionResult> UpdateContact(int id, [FromBody] UpdateContactDto contactDto)
         {
             try
             {
-                if (contact == null)
+                if (contactDto == null)
                 {
                     return BadRequest(new { Message = "Invalid contact data" });
                 }
 
-                var updatedContact = await _contactService.UpdateContact(id, contact);
+                var updatedContact = await _contactService.UpdateContact(id, contactDto.Contact, contactDto.DetailsForDelete);
+
                 if (updatedContact == null)
                 {
                     return NotFound(new { Message = $"Contact with ID {id} not found." });

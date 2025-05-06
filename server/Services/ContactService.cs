@@ -92,7 +92,7 @@ namespace Server.Services
 
         }
 
-        public async Task<Contact?> UpdateContact(int id, ContactDto contactDto)
+        public async Task<Contact?> UpdateContact(int id, ContactDto contactUpdates, List<int> detailsForDelete)
         {
             var contact = await _context.Contacts
                 .Include(c => c.ContactDetails)
@@ -103,10 +103,21 @@ namespace Server.Services
                 return null;
             }
 
-            contact.FirstName = contactDto.FirstName;
-            contact.LastName = contactDto.LastName;
+            contact.FirstName = contactUpdates.FirstName;
+            contact.LastName = contactUpdates.LastName;
 
-            foreach (var detail in contactDto.ContactDetails)
+            var detailsToRemove = contact.ContactDetails
+                .Where(d => detailsForDelete.Contains(d.Id))
+                .ToList();
+
+            foreach (var item in detailsToRemove)
+            {
+                contact.ContactDetails.Remove(item);
+            }
+
+            _context.ContactDetails.RemoveRange(detailsToRemove);
+
+            foreach (var detail in contactUpdates.ContactDetails)
             {
                 if (detail.Id == 0)
                 {
