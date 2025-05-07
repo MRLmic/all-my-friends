@@ -32,6 +32,40 @@ Make sure you have the following already installed:
 To start the app, run `npm run dev` from the client directory. Then run `dotnet run` from the root of the server directory. The backend 
 should create and seed a database on startup in the development environment if your connection string is set up correctly and your user has correct permissions. 
 
+## API Documentation
+
+### Base URL
+`http://localhost:5265/api/contacts`
+
+### Endpoints
+
+#### 1. Get All Contacts
+- **Method**: `GET`
+- **URL**: `/api/contacts`
+- **Response**: Returns a list of all contacts.
+
+#### 2. Get Contact by ID
+- **Method**: `GET`
+- **URL**: `/api/contacts/{id}`
+- **Response**: Returns the contact with the specified ID.
+
+#### 3. Create a New Contact
+- **Method**: `POST`
+- **URL**: `/api/contacts`
+- **Response**: Returns the created contact.
+
+#### 4. Update a Contact
+- **Method**: `PUT`
+- **URL**: `/api/contacts/{id}`
+- **Response**: Returns the updated contact.
+
+#### 5. Delete a Contact
+- **Method**: `DELETE`
+- **URL**: `/api/contacts/{id}`
+- **Response**: Returns `204 No Content` if successful.
+
+#### For request body examples, see the Swagger info below
+
 ### Development Tools
 - To see available API endpoints, including request body structure, expected return and other relevant info, 
 with the app running locally, navigate to the [swagger](https://swagger.io/) API documentation [here](http://localhost:5265/swagger/index.html)
