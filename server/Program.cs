@@ -37,14 +37,21 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-//TODO - Add Try/Catch block
 using (var scope = app.Services.CreateScope())
 {
-    var dbContext = scope.ServiceProvider.GetRequiredService<ContactsDbContext>();
-    dbContext.Database.Migrate();
-    if (builder.Environment.IsDevelopment())
+    try
     {
-        ContactsDbContext.SeedDatabase(dbContext);
+        var dbContext = scope.ServiceProvider.GetRequiredService<ContactsDbContext>();
+        dbContext.Database.Migrate();
+        if (builder.Environment.IsDevelopment())
+        {
+            ContactsDbContext.SeedDatabase(dbContext);
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"An error occurred while migrating or seeding the database: {ex.Message}");
+        throw;
     }
 }
 
