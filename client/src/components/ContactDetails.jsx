@@ -11,7 +11,8 @@ const ContactDetails = ({
   selectedContact,
   setEditContactForm,
   setShowForm,
-  handleAddDetailClick
+  handleAddDetailClick,
+  handleDeleteContact
 }) => {
   const { firstName, lastName, contactDetails } = selectedContact;
 
@@ -40,7 +41,7 @@ const ContactDetails = ({
         >
           <MdModeEdit className="edit-icon" />
         </Button>
-        <Button className="mx-1" variant="outline-danger">
+        <Button className="mx-1" variant="outline-danger" onClick={handleDeleteContact}>
           <LuTrash className="delete-icon" />
         </Button>
       </div>

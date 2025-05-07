@@ -40,6 +40,16 @@ const Home = () => {
     setEditContactForm(true);
   }
 
+  const handleDeleteContact = async () => {
+    try {
+      await api.deleteContact(selectedContact.id);
+      fetchContacts();
+      setSelectedContact(null);
+    } catch (error) {
+      console.error("Failed to delete contact", error);
+    }
+  }
+
   return (
     <div className="home mt-5">
       <div className="row">
@@ -71,6 +81,7 @@ const Home = () => {
               setEditContactForm={setEditContactForm}
               setShowForm={setShowForm}
               handleAddDetailClick={handleAddDetailClick}
+              handleDeleteContact={handleDeleteContact}
             />
           )}
         </div>
