@@ -27,9 +27,9 @@ const ContactList = ({contacts, setSelectedContact, selectedContact, setShowForm
 
   useEffect(() => {
     if (smUp) {
-      setShow(true); // Always show Offcanvas for smUp devices
+      setShow(true); 
     } else {
-      setShow(false); // Allow toggle for smaller devices
+      setShow(false); 
     }
   }, [smUp]);
 

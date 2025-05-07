@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Button, OverlayTrigger, Tooltip, Modal, Form } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip, Form } from "react-bootstrap";
 import { VscSave } from "react-icons/vsc";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbPhonePlus } from "react-icons/tb";
