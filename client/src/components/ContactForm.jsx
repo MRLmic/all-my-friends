@@ -7,6 +7,7 @@ import { TbPhonePlus } from "react-icons/tb";
 import { isValidPhoneNumber, parsePhoneNumber } from "react-phone-number-input";
 
 import ContactDetailForm from "./ContactDetailForm";
+import ConfirmationModal from "./ConfirmCancelModal";
 import api from "../api/contacts.js";
 
 const ContactForm = ({
@@ -45,6 +46,8 @@ const ContactForm = ({
 
   const [validated, setValidated] = useState(false);
   const [showValidation, setShowValidation] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+
 
 
   const handleChange = (e) => {
@@ -77,7 +80,11 @@ const ContactForm = ({
   };
 
   const handleDetailDelete = (index) => {
-    if (contactDetails[index].id === null) {
+    if (contactDetails.length === 1) {
+      setShowModal(true);
+      return;
+    }
+    if (contactDetails[index].id === null || contactDetails[index].id === undefined) {
       setContactDetails((prevDetails) =>
         prevDetails.filter((_, i) => i !== index)
       );
@@ -88,6 +95,16 @@ const ContactForm = ({
       ]);
     }
   };
+
+  const handleConfirmModal = () => {
+    setShowModal(false);
+    handleCancel(); 
+  };
+
+  const handleCancelModal = () => {
+    setShowModal(false); 
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -214,6 +231,11 @@ const ContactForm = ({
                 &nbsp;Add New
               </Button>
             </div>
+            <ConfirmationModal
+              show={showModal}
+              onConfirm={handleConfirmModal}
+              onCancel={handleCancelModal}
+            />
             {contactDetails.map((detail, index) => (
               <ContactDetailForm
                 key={detail.id || index}
