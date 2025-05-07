@@ -2,7 +2,15 @@
 
 ## Description
 
-Full Stack App using React.js & .NET Core
+Full Stack Phone Book App using React.js & .NET Core
+
+## Tech Stack
+
+- React.js (Frontend)
+- ASP.NET Core 8.0 (Backend)
+- PostgreSQL (Database)
+- Entity Framework Core
+- Bootstrap (UI Styling)
 
 ## Installation
 
@@ -11,6 +19,7 @@ Full Stack App using React.js & .NET Core
 Make sure you have the following already installed:
 1. [Node.js](https://nodejs.org/)
 2. [Dotnet SDK](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
+3. [PostgreSQL](https://www.postgresql.org/)
 
 ### App Setup
 1. Clone the [Github Repo](https://github.com/MRLmic/all-my-friends).
@@ -24,3 +33,4 @@ with the app running locally, navigate to the [swagger](https://swagger.io/) API
 #### Libraries
 - [React Phone Number Input](https://gitlab.com/catamphetamine/react-phone-number-input)
 - [React Icons](https://react-icons.github.io/react-icons/)
+- [React Device Sizes](https://github.com/mahadev-mandal/react-device-sizes#readme)
