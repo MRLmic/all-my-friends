@@ -66,6 +66,22 @@ should create and seed a database on startup in the development environment if y
 
 #### For request body examples, see the Swagger info below
 
+### ERD
+```mermaid
+erDiagram
+    CONTACT ||--o{ CONTACT-DETAIL : has
+    CONTACT {
+        int Id
+        string FirstName
+        string LastName
+    }
+    CONTACT-DETAIL {
+        int Id
+        string Label
+        string PhoneNumber
+        string Region
+    }
+
 ### Development Tools
 - To see available API endpoints, including request body structure, expected return and other relevant info, 
 with the app running locally, navigate to the [swagger](https://swagger.io/) API documentation [here](http://localhost:5265/swagger/index.html)
