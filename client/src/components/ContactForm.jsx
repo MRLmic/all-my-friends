@@ -77,10 +77,16 @@ const ContactForm = ({
   };
 
   const handleDetailDelete = (index) => {
-    setDetailsForDelete((prevDetails) => [
-      ...prevDetails,
-      contactDetails[index].id,
-    ]);
+    if (contactDetails[index].id === null) {
+      setContactDetails((prevDetails) =>
+        prevDetails.filter((_, i) => i !== index)
+      );
+    } else {
+      setDetailsForDelete((prevDetails) => [
+        ...prevDetails,
+        contactDetails[index].id,
+      ]);
+    }
   };
 
   const handleSubmit = (e) => {

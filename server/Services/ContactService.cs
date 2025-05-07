@@ -110,12 +110,17 @@ namespace Server.Services
                 .Where(d => detailsForDelete.Contains(d.Id))
                 .ToList();
 
-            foreach (var item in detailsToRemove)
+            if (detailsToRemove.Count > 0)
+            {
+                foreach (var item in detailsToRemove)
             {
                 contact.ContactDetails.Remove(item);
             }
 
             _context.ContactDetails.RemoveRange(detailsToRemove);
+            
+            }
+            
 
             foreach (var detail in contactUpdates.ContactDetails)
             {
