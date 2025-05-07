@@ -71,7 +71,6 @@ const ContactForm = ({
   };
 
   const handleDetailChange = (index, updatedFields) => {
-    console.log("index:", index, "updatedFields:", updatedFields);
     setContactDetails((prevDetails) =>
       prevDetails.map((detail, i) =>
         i === index ? { ...detail, ...updatedFields } : detail
@@ -154,7 +153,6 @@ const ContactForm = ({
     editContactForm
       ? handlePutRequest(updateContactData)
       : handlePostRequest(contactData);
-    console.log("Form Data:", contactData);
   };
 
   const handlePutRequest = (contactData) => {
@@ -170,7 +168,6 @@ const ContactForm = ({
       }
     };
     updateContact();
-    console.log("PUT request with data:", contactData);
   };
 
   const handlePostRequest = (contactData) => {
@@ -183,7 +180,6 @@ const ContactForm = ({
       }
     };
     createContact();
-    console.log("POST request with data:", contactData);
   };
 
   const handleCancel = () => {
