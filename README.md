@@ -81,7 +81,7 @@ erDiagram
         string PhoneNumber
         string Region
     }
-    ```
+```
 
 ### Development Tools
 - To see available API endpoints, including request body structure, expected return and other relevant info, 
