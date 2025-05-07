@@ -33,6 +33,9 @@ const ContactList = ({contacts, setSelectedContact, selectedContact, setShowForm
               <ListEntry key={index} contact={contact} active={selectedContact?.id === contact.id} onClick={() => handleSelectContact(contact)}/>
             ))}
         </Offcanvas.Body>
+        <div className='offcanvas-footer'>
+          Favicon by <a href="https://icons8.com/" target="_blank" rel="noopener noreferrer">icons8.com</a>
+          </div>
       </Offcanvas>
     </div>
   );

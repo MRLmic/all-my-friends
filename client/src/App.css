@@ -30,3 +30,14 @@
   font-weight: 200;
   font-style: normal;
 }
+
+.offcanvas-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  color: grey;
+  font-size: small;
+  margin-left: 2rem;
+}
