@@ -28,8 +28,8 @@ public class ContactsDbContext : DbContext
                     LastName = "Doe",
                     ContactDetails = new List<ContactDetail>
                     {
-                    new ContactDetail { Label = "Mom's Phone", PhoneNumber = "123-456-7890", Region = "US" },
-                    new ContactDetail { Label = "Office", PhoneNumber = "623-282-6356", Region = "US" }
+                    new ContactDetail { Label = "Mom's Phone", PhoneNumber = "+11234567890", Region = "US" },
+                    new ContactDetail { Label = "Office", PhoneNumber = "+16232826356", Region = "US" }
                     }
                 },
                 new Contact
@@ -38,8 +38,8 @@ public class ContactsDbContext : DbContext
                     LastName = "Smith",
                     ContactDetails = new List<ContactDetail>
                     {
-                    new ContactDetail { Label = "Phone", PhoneNumber = "987-654-3210", Region = "US" },
-                    new ContactDetail { Label = "Work Phone", PhoneNumber = "623-282-6356", Region = "US" }
+                    new ContactDetail { Label = "Phone", PhoneNumber = "+19876543210", Region = "US" },
+                    new ContactDetail { Label = "Work Phone", PhoneNumber = "+16232826356", Region = "US" }
                     }
                 }
             );
