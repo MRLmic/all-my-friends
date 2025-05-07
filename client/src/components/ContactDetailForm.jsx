@@ -6,7 +6,6 @@ import { LuTrash } from "react-icons/lu";
 //PhoneInput component prepends country code to phone number automatically (E.164 format)
 import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
 
-
 const ContactDetailForm = ({
   index,
   detail,
