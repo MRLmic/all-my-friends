@@ -92,8 +92,16 @@ erDiagram
 - To see available API endpoints, including request body structure, expected return and other relevant info, 
 with the app running locally, navigate to the [swagger](https://swagger.io/) API documentation [here](http://localhost:5265/swagger/index.html)
 
-#### Libraries
-- [React Phone Number Input](https://gitlab.com/catamphetamine/react-phone-number-input)
-- [React Icons](https://react-icons.github.io/react-icons/)
-- [React Device Sizes](https://github.com/mahadev-mandal/react-device-sizes#readme)
-- [Axios for React](https://www.npmjs.com/package/react-axios)
+### Additional Features
+
+- Phone number validation and international formatting
+- Responsive design for mobile and desktop
+- Confirmation modals for destructive actions
+
+### Frontend Dependencies
+
+- [React Bootstrap](https://react-bootstrap.github.io/) - UI component framework
+- [React Phone Number Input](https://gitlab.com/catamphetamine/react-phone-number-input) - Phone input with validation
+- [React Icons](https://react-icons.github.io/react-icons/) - Icon components
+- [React Device Sizes](https://github.com/mahadev-mandal/react-device-sizes#readme) - Responsive design utilities
+- [Axios](https://www.npmjs.com/package/react-axios) - HTTP client for API requests
