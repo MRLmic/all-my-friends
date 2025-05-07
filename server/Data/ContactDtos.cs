@@ -2,6 +2,7 @@ using Server.Models;
 
 namespace Server.Data
 {
+    //Dev note: Automapper bypassed intentionally for clarity
     public class ContactDto
     {
         public int Id { get; set; }

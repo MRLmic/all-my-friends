@@ -14,6 +14,7 @@ namespace Server.Services
             _context = context;
         }
 
+        //Dev note: Authomapper bypassed intentionally for clarity
         public async Task<List<ContactDto>> GetContacts()
         {
 
