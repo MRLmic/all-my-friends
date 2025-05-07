@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 
-import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, OverlayTrigger, Tooltip, Modal, Form } from "react-bootstrap";
 import { VscSave } from "react-icons/vsc";
 import { MdOutlineCancel } from "react-icons/md";
 import { TbPhonePlus } from "react-icons/tb";
+import { isValidPhoneNumber, parsePhoneNumber } from "react-phone-number-input";
 
 import ContactDetailForm from "./ContactDetailForm";
 import api from "../api/contacts.js";
@@ -41,6 +42,10 @@ const ContactForm = ({
     firstName: editContactForm ? selectedContact.firstName : "",
     lastName: editContactForm ? selectedContact.lastName : "",
   });
+
+  const [validated, setValidated] = useState(false);
+  const [showValidation, setShowValidation] = useState(false);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -80,9 +85,35 @@ const ContactForm = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    setValidated(true);
+    setShowValidation(true);
     const updatedContactDetails = contactDetails.filter(
       (detail) => !detailsForDelete.includes(detail.id)
     );
+
+    const form = e.currentTarget;
+    if (!form.checkValidity()) {
+      e.stopPropagation();
+      return;
+    }
+
+    for (let detail of updatedContactDetails) {
+      if (
+        !detail.label ||
+        !detail.phoneNumber ||
+        !isValidPhoneNumber(detail.phoneNumber)
+      ) {
+        return;
+      }
+    }
+
+    for (let detail of updatedContactDetails) {
+      const phoneData = parsePhoneNumber(detail.phoneNumber || '');
+      if (phoneData) {
+        detail.region = phoneData.country || '';
+      }
+    }
 
     const contactData = {
       ...formData,
@@ -145,29 +176,28 @@ const ContactForm = ({
       </div>
       <div className="row">
         <div className="col-md-4 mx-auto">
-          <form onSubmit={handleSubmit}>
-            <div className="input-group py-3">
-              <span className="input-group-text">First Name:</span>
-              <input
-                type="text"
-                className="form-control"
-                id="firstName"
-                name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="input-group py-3">
-              <span className="input-group-text">Last Name:</span>
-              <input
-                type="text"
-                className="form-control"
-                id="lastName"
-                name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
-              />
-            </div>
+        <Form noValidate validated={validated} onSubmit={handleSubmit}>
+          <Form.Group className="mb-3" controlId="formFirstName">
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              required
+              type="text"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              placeholder="Enter first name"
+            />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formLastName">
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              type="text"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleChange}
+              placeholder="Enter last name"
+            />
+          </Form.Group>
             <div className="d-grid gap-2 mb-3">
               <Button
                 variant="outline-success"
@@ -186,6 +216,9 @@ const ContactForm = ({
                 hideDetail={detailsForDelete.includes(detail.id)}
                 handleDetailChange={handleDetailChange}
                 handleDetailDelete={() => handleDetailDelete(index)}
+                isValidated={validated}
+                setValidated={setValidated}
+                showValidation={showValidation}
               />
             ))}
             <div>
@@ -222,7 +255,7 @@ const ContactForm = ({
                 </OverlayTrigger>
               </div>
             </div>
-          </form>
+          </Form>
         </div>
       </div>
     </div>
