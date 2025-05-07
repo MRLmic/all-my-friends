@@ -87,11 +87,14 @@ namespace Server.Services
             }
 
             _context.Contacts.Add(contact);
-            await _context.SaveChangesAsync();
-
-            if (contact == null)
+            
+            try
             {
-                return null;
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception("An error occurred while saving the contact to the database.", ex);
             }
 
             return contact;
@@ -127,9 +130,7 @@ namespace Server.Services
                 {
                     contact.ContactDetails.Remove(item);
                 }
-
                 _context.ContactDetails.RemoveRange(detailsToRemove);
-
             }
 
 
@@ -157,17 +158,18 @@ namespace Server.Services
                     }
                 }
             }
-
-            await _context.SaveChangesAsync();
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception("An error occurred while updating the contact in the database.", ex);
+            }
 
             var updatedContact = await _context.Contacts
                 .Include(c => c.ContactDetails)
                 .FirstOrDefaultAsync(c => c.Id == id);
-
-            if (updatedContact == null)
-            {
-                return null;
-            }
 
             return updatedContact;
         }
@@ -182,7 +184,15 @@ namespace Server.Services
             }
 
             _context.Contacts.Remove(contact);
-            await _context.SaveChangesAsync();
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException ex)
+            {
+                throw new Exception("An error occurred while deleting the contact from the database.", ex);
+            }
 
             return new NoContentResult();
         }
