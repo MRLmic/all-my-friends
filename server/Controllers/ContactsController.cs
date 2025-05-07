@@ -52,6 +52,11 @@ namespace Server.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateContact([FromBody] ContactDto contact)
         {
+            if (contact == null)
+            {
+                return BadRequest(new { Message = "Contact data cannot be null." });
+            }
+            
             try
             {
                 Contact newContact = await _contactService.AddNewContact(contact);
@@ -72,7 +77,7 @@ namespace Server.Controllers
             {
                 if (contactDto == null)
                 {
-                    return BadRequest(new { Message = "Invalid contact data" });
+                    return BadRequest(new { Message = "Contact update data cannot be null." });
                 }
 
                 var updatedContact = await _contactService.UpdateContact(id, contactDto.Contact, contactDto.DetailsForDelete);

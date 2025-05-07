@@ -63,6 +63,11 @@ namespace Server.Services
 
         public async Task<Contact> AddNewContact(ContactDto contactDto)
         {
+            if (contactDto == null)
+            {
+                throw new ArgumentNullException(nameof(contactDto), "Contact data cannot be null.");
+            }
+
             Contact contact = new Contact
             {
                 FirstName = contactDto.FirstName,
@@ -94,6 +99,11 @@ namespace Server.Services
 
         public async Task<Contact?> UpdateContact(int id, ContactDto contactUpdates, List<int> detailsForDelete)
         {
+            if (contactUpdates == null)
+            {
+                throw new ArgumentNullException(nameof(contactUpdates), "Contact updates cannot be null.");
+            }
+
             var contact = await _context.Contacts
                 .Include(c => c.ContactDetails)
                 .FirstOrDefaultAsync(c => c.Id == id);
@@ -113,14 +123,14 @@ namespace Server.Services
             if (detailsToRemove.Count > 0)
             {
                 foreach (var item in detailsToRemove)
-            {
-                contact.ContactDetails.Remove(item);
+                {
+                    contact.ContactDetails.Remove(item);
+                }
+
+                _context.ContactDetails.RemoveRange(detailsToRemove);
+
             }
 
-            _context.ContactDetails.RemoveRange(detailsToRemove);
-            
-            }
-            
 
             foreach (var detail in contactUpdates.ContactDetails)
             {
