@@ -195,7 +195,7 @@ const ContactForm = ({
   return (
     <div className="contact-form">
       <div className="row mx-auto text-center">
-        <div>{editContactForm ? "Edit" : "Add New"} Contact</div>
+        <div className="fw-semibold my-4 h1">{editContactForm ? "Edit" : "Add New"} Contact</div>
       </div>
       <div className="row">
         <div className="col-md-4 mx-auto">
@@ -226,6 +226,7 @@ const ContactForm = ({
                 variant="outline-success"
                 size="lg"
                 onClick={handleAddDetailClick}
+                className="button-submit"
               >
                 <TbPhonePlus />
                 &nbsp;Add New
@@ -250,7 +251,7 @@ const ContactForm = ({
               />
             ))}
             <div>
-              <div className="d-inline-block">
+              <div className="d-inline-block m-3">
                 <OverlayTrigger
                   placement="top"
                   overlay={
@@ -260,9 +261,10 @@ const ContactForm = ({
                   }
                 >
                   <Button
-                    variant="link"
-                    className="text-black"
+                    size="lg"
+                    variant="outline-danger"
                     onClick={() => handleCancel()}
+                    className="button-cancel"
                   >
                     <MdOutlineCancel />
                   </Button>
@@ -277,7 +279,7 @@ const ContactForm = ({
                     </Tooltip>
                   }
                 >
-                  <Button type="submit" variant="link" className="text-black">
+                  <Button type="submit" variant="outline-success" size="lg" className="button-submit">
                     <VscSave />
                   </Button>
                 </OverlayTrigger>

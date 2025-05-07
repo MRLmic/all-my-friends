@@ -68,6 +68,7 @@ const ContactDetailForm = ({
               variant="outline-danger"
               size="lg"
               onClick={handleDetailDelete}
+              className="button-cancel"
             >
               <LuTrash />
               &nbsp;Delete

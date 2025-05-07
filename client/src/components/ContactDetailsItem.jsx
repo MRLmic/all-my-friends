@@ -15,7 +15,7 @@ const ContactDetailsItem = ({ label, region, phoneNumber }) => {
         <ListGroup.Item className="col flex-grow-0 contact-details-item">
           {region}
         </ListGroup.Item>
-        <ListGroup.Item className="col-4 flex-grow-1 contact-details-item">
+        <ListGroup.Item className="col-5 flex-grow-1 contact-details-item">
           <span>{phoneNumber}</span>
         </ListGroup.Item>
       </ListGroup>

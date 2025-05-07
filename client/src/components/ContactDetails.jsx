@@ -28,20 +28,20 @@ const ContactDetails = ({
       </div>
       <div className="d-inline-block mb-2">
         <Button
-          className="mx-1"
+          className="mx-1 button-submit"
           variant="outline-success"
           onClick={() => handleAddDetailClick()}
         >
           <TbPhonePlus />
         </Button>
         <Button
-          className="mx-1"
+          className="mx-1 button-edit"
           variant="outline-info"
           onClick={() => handleEditClick()}
         >
           <MdModeEdit className="edit-icon" />
         </Button>
-        <Button className="mx-1" variant="outline-danger" onClick={handleDeleteContact}>
+        <Button className="mx-1 button-cancel" variant="outline-danger" onClick={handleDeleteContact}>
           <LuTrash className="delete-icon" />
         </Button>
       </div>

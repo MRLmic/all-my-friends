@@ -3,16 +3,25 @@
   margin: 0 auto;
   width: 100vw;
   text-align: center;
+  background-color: #fcf7ff;
+
 }
 
 .home {
   min-height: 70vh;
 }
 
+/* Contact List */
+.contact-list {
+  max-width: 20vw;
+}
 .list-group-item.active {
   background-color: #605ab8; 
   border-color: #6f42c1;
-  color: rgb(251, 229, 238);
+}
+
+.list-group-item-action:not(.active):hover {
+  color: #605ab8;
 }
 
 /* Contact Form */
@@ -20,9 +29,31 @@
   position: fixed;
 }
 
+.button-submit:hover {
+  background-color: hsl(120, 39%, 84%);
+  color: rgb(13, 99, 13);
+}
+
+.button-cancel:hover {
+  background-color: hsl(0, 100%, 96%);
+  color: rgb(255, 0, 0);
+}
+
+.button-edit:hover {
+  background-color: hsl(210, 100%, 96%);
+  color: rgb(76, 76, 219);
+  border-color: rgb(76, 76, 219);
+}
+
+.button-edit {
+  color: rgb(76, 76, 219);
+  border-color: rgb(76, 76, 219);
+}
+
 .contact-details-item {
   text-wrap: nowrap;
 }
+
 
 .urbanist-extra-light {
   font-family: "Urbanist", sans-serif;
@@ -40,4 +71,17 @@
   color: grey;
   font-size: small;
   margin-left: 2rem;
+}
+
+.open-contacts-button {
+  color: #605ab8;
+  outline-color: #605ab8;
+  border-color: #605ab8;
+}
+
+.open-contacts-button:hover {
+  background-color: hsl(279, 72%, 93%);
+  outline-color: #605ab8;
+  border-color: #605ab8;
+  color: #605ab8;
 }
