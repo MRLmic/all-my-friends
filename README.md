@@ -25,8 +25,9 @@ Make sure you have the following already installed:
 1. Clone the [Github Repo](https://github.com/MRLmic/all-my-friends).
 2. Make sure Postgres is running and make note of the port it is using.
 3. Setup your `appSettings.json` file in the root directory, ensuring your connection string has correct values for your Username, Password, and Port.
-4. Navigate to the client directory and run `npm install` to make sure front end dependencies are installed and available.
-5. Navigate to the server directory and run `dotnet build` to make sure back end packages are available and run the compiler.
+4. From the project's root directory run `npm install`.
+5. Navigate to the client directory and run `npm install` to make sure front end dependencies are installed and available.
+6. Navigate to the server directory and run `dotnet build` to make sure back end packages are available and run the compiler.
 
 ### App Startup
 To start the app:
